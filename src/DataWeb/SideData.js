@@ -159,8 +159,54 @@ import ovo from "../assets/ovo.svg"
         {id:1,judul:"Product", quest1:"How do I choose a product that suits my skin type?", quest2:"Are Arliva products suitable for all skin types?", quest3:"Does Arliva use natural ingredients?"},
         {id:2,judul:"Company", quest1:"What is Arliva and what is the brand's mission?", quest2:"Where are Arliva products manufactured?", quest3:"Is Arliva cruelty-free and eco-friendly?"},
         {id:3,judul:"Other", quest1:"Can I return the product if it doesn't fit?", quest2:"How long will it take to ship my order?", quest3:"How to contact the Arliva team?"}
-      ] 
+      ], 
+      setProvinsi : [
+        {id:1, provinsi: "Jawa Tengah",
+    kota: [
+      "Semarang",
+      "Surakarta",
+      "Magelang",
+      "Tegal",
+      "Kabupaten Banyumas",
+      "Kabupaten Boyolali",
+      "Kabupaten Cilacap",
+      "Kabupaten Demak",
+      "Kabupaten Grobogan",
+      "Kabupaten Jepara"
+    ]
+  }, 
+  { id:2, provinsi: "Jawa Barat",
+    kota: [
+      "Bandung",
+      "Bekasi",
+      "Bogor",
+      "Depok",
+      "Cimahi",
+      "Sukabumi",
+      "Cirebon",
+      "Tasikmalaya",
+      "Banjar",
+      "Kabupaten Bandung",
+      "Kabupaten Bekasi",
+      "Kabupaten Bogor",
+      "Kabupaten Ciamis",
+      "Kabupaten Cianjur",
+      "Kabupaten Cirebon",
+      "Kabupaten Garut",
+      "Kabupaten Indramayu",
+      "Kabupaten Karawang",
+      "Kabupaten Kuningan",
+      "Kabupaten Majalengka",
+      "Kabupaten Purwakarta",
+      "Kabupaten Subang",
+      "Kabupaten Sukabumi",
+      "Kabupaten Sumedang",
+      "Kabupaten Tasikmalaya"
+    ]}
+      ]
       
 
   }
+
+
 export default siteData;

@@ -1,7 +1,9 @@
 import React from "react";
 import { Layouts } from "../Pages/Layouts";
+import { Link } from "react-router";
 import settings from "../assets/setting.svg";
 import plus from "../assets/plus.svg"
+
 
 export const AccountAddres = () => {
   return (
@@ -15,17 +17,19 @@ export const AccountAddres = () => {
                 <h1 className="text-4xl ">Hey, Rafa Almaqdis</h1>
                 <p className="text-base mt-4">rafaalmaqdis53@gmail.com</p>
               </div>
+              <Link to="/Setting">
               <img src={settings} className="cursor-pointer"></img>
+              </Link>
             </div>
           </section>
 
           {/* <!-- Navigation Tabs --> */}
           <nav className="flex gap-6 border-b border-gray-line">
-            <button className="pb-2 text-gray-text hover:text-black hover:cursor-pointer">Orders</button>
-            <button className="pb-2 text-gray-text hover:text-black hover:cursor-pointer">Favorit</button>
-            <button className="pb-2 border-b border-black font-medium hover:cursor-pointer">
+            <Link to="/AccountOrder" className="pb-2 text-gray-text hover:text-black hover:cursor-pointer">Orders</Link>
+            <Link to="/AccountFavorit" className="pb-2 text-gray-text hover:text-black hover:cursor-pointer">Favorit</Link>
+            <Link to="/AccountAddres" className="pb-2 border-b border-black font-medium hover:cursor-pointer">
               Addresses
-            </button>
+            </Link>
           </nav>
 
           {/* <!-- No Address Message --> */}
@@ -38,10 +42,10 @@ export const AccountAddres = () => {
 
           {/* <!-- Add New Address Button --> */}
           <section>
-            <button className="w-full border border-gray-300 rounded-xl p-7 flex items-center  space-x-4 hover:bg-gray-50">
+            <Link  to="/FormAddress" className="w-full border border-gray-300 rounded-xl p-7 flex items-center  space-x-4 hover:bg-gray-50">
               <img src={plus} alt="" />
               <span className="font-medium">Add a new address</span>
-            </button>
+            </Link>
           </section>
         </div>
       </main>

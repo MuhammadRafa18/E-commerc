@@ -1,109 +1,108 @@
 import React from "react";
 import { Layouts } from "../Pages/Layouts";
-
+import siteData from "../DataWeb/SideData";
+import ProdukDetail from "../assets/ProdukDetail.png";
+import love from "../assets/love.svg";
+import start from "../assets/start.svg";
 export const ProductDetail = () => {
   return (
     <Layouts>
-      <main class="max-w-6xl mx-auto px-4 py-16 space-y-12">
+      <main class="w-full  mx-auto py-16 px-16  ">
         {/* <!-- Product section --> */}
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-10">
+        <div class="flex items-center justify-center space-x-6 ">
           {/* <!-- Image gallery --> */}
-          <div class="flex space-x-4">
-            <div class="flex flex-col space-y-3">
-              <img
-                src="thumb1.png"
+          <div class="w-fit flex ">
+            <div class="w-fit flex flex-col space-y-6 justify-center">
+              {siteData.ProdukBestseller.slice(0,3).map((item) => (
+              <div key={item.id} className=" border border-gray-text rounded-xl px-7 py-2">
+                  <img
+                src={item.gambar}
                 alt="Thumbnail 1"
-                class="w-16 h-16 border rounded"
-              />
-              <img
-                src="thumb2.png"
-                alt="Thumbnail 2"
-                class="w-16 h-16 border rounded"
-              />
-              <img
-                src="thumb3.png"
-                alt="Thumbnail 3"
-                class="w-16 h-16 border rounded"
-              />
-            </div>
-            <div>
-              <img
-                src="main-product.png"
-                alt="Main Product"
-                class="w-full rounded-lg"
-              />
+                class="w-10"
+                />
+              </div>
+              ))}
             </div>
           </div>
+        
+                <img
+                src={ProdukDetail}
+                alt="Main Product"
+                class="w-lg rounded-lg shrink-0"
+              />
+        
 
           {/* <!-- Product info --> */}
-          <div class="space-y-4">
-            <h1 class="text-base font-semibold">
+          <div class="w-fit space-y-4 rounded-md shadow p-5 ">
+            <div className="flex items-start">
+            <h1 class="text-lg font-semibold">
               Facewash Men Oil Control Anti Shine Brightening Cooling Foam
             </h1>
+            <img src={love} alt="" className="w-7 mt-2"/>
+            </div>
+            {/* <!-- Rating and Price --> */}
+            <div className=" flex justify-between items-center">
             <p class="text-sm font-medium">Rp 100.000</p>
-
-            {/* <!-- Rating --> */}
-            <div class="flex items-center space-x-1 text-yellow-500 text-sm">
-              <span>★★★★★</span>
+            <div class="flex items-center space-x-3 ">
+               <img src={start} alt="" className="" />
+               <img src={start} alt="" className="" />
+               <img src={start} alt="" className="" />
+               <img src={start} alt="" className="" />
+               <img src={start} alt="" className="" />
+            </div>
             </div>
 
             {/* <!-- Size options --> */}
-            <div class="space-x-2 text-sm">
-              <span>Size</span>
-              <button class="px-3 py-1 border rounded">100 ml</button>
-              <button class="px-3 py-1 border rounded">150 ml</button>
-              <button class="px-3 py-1 border rounded">200 ml</button>
+            <div class="space-x-3 ">
+              <span className=" text-sm">Size</span>
+              <button class="px-3 py-1 text-xs border border-gray-text/70 rounded">100 ml</button>
+              <button class="px-3 py-1 text-xs border rounded">150 ml</button>
+              <button class="px-3 py-1 text-xs border border-gray-text rounded">200 ml</button>
             </div>
 
             {/* <!-- Quantity --> */}
             <div class="flex items-center space-x-3 text-sm">
               <span>Quantity</span>
-              <div class="flex items-center border rounded px-2 py-1 space-x-2">
+              <div class="w-32 flex px-3.5 py-1 justify-between items-center  rounded-md shadow">
                 <button>-</button>
-                <span>1</span>
+                <p>1</p>
                 <button>+</button>
               </div>
             </div>
 
             {/* <!-- Buttons --> */}
-            <div class="flex items-center space-x-4">
-              <button class="px-6 py-2 border rounded-full text-sm">
+            <div class="w-full flex items-center space-x-2.5">
+              <button class="w-1/2  py-2.5 border rounded-full text-sm">
                 Add to cart
               </button>
-              <button class="px-6 py-2 bg-black text-white rounded-full text-sm">
+              <button class="w-1/2  py-2.5 bg-black text-white rounded-full text-sm">
                 Buy now
               </button>
             </div>
 
             {/* <!-- Payment logos --> */}
-            <div class="flex space-x-4 mt-4">
-              <img src="bca.svg" alt="BCA" class="h-5" />
-              <img src="bri.svg" alt="BRI" class="h-5" />
-              <img src="mandiri.svg" alt="Mandiri" class="h-5" />
-              <img src="qris.svg" alt="QRIS" class="h-5" />
-              <img src="ovo.svg" alt="OVO" class="h-5" />
-              <img src="gopay.svg" alt="Gopay" class="h-5" />
+            <div class="flex justify-center space-x-4 mt-4">
+               {siteData.Payment.map((item) => (
+                <img src={item.logo} alt="" className="" key={item.id} />
+              ))}
             </div>
           </div>
         </div>
 
         {/* <!-- Tabs --> */}
-        <div class="border-b border-black flex space-x-6 text-sm font-medium">
-          <button class="border-b-4 border-black pb-1">DESCRIPTION</button>
-          <button class="pb-1">HOW TO USE</button>
-          <button class="pb-1">INGREDIENT</button>
+        <div class="border-b mt-16 border-black flex space-x-6 text-sm font-medium">
+          <button class="w-1/3  bg-black py-1.5 text-white ">DESCRIPTION</button>
+          <button class="w-1/3 py-1.5">HOW TO USE</button>
+          <button class="w-1/3 py-1.5">INGREDIENT</button>
         </div>
 
         {/* <!-- Description --> */}
-        <div class="text-xs text-gray-700 leading-relaxed">
-          <p>
+        <div class="flex justify-center text-xs mt-6 leading-relaxed">
+          <p className="w-2/3 text-center">
             Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do
             eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim
             ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut
-            aliquip ex ea commodo consequat.
-          </p>
-          <p class="mt-2">
-            Duis aute irure dolor in reprehenderit in voluptate velit esse
+            aliquip ex ea commodo consequat.   Duis aute irure dolor in reprehenderit in voluptate velit esse
             cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat
             cupidatat non proident, sunt in culpa qui officia deserunt mollit
             anim id est laborum.

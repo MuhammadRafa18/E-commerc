@@ -17,6 +17,8 @@ import { Cart } from '../component/Cart'
 import { Faq } from '../component/Faq'
 import { DetailFaq } from "../component/DetailFaq"
 import { FormAddress } from "../component/FormAddress"
+import { Setting } from "../component/Setting"
+import { ProductDetail } from "../component/ProductDetail"
 
 export const MainRoute = () => {
   return (
@@ -38,8 +40,8 @@ export const MainRoute = () => {
         <Route path='/Faq' element={<Faq/>} />
         <Route path='/DetailFaq' element={<DetailFaq/>} />
         <Route path='/FormAddress' element={<FormAddress/>} />
-        <Route path='/Order' element={<Order/>} />
-        <Route path='/Order' element={<Order/>} />
+        <Route path='/Setting' element={<Setting/>} />
+        <Route path='/ProductDetail' element={<ProductDetail/>} />
         <Route path='/Order' element={<Order/>} />
         <Route path='/Order' element={<Order/>} />
 

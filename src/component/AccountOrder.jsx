@@ -1,8 +1,9 @@
 import React from "react";
 import { Layouts } from "../Pages/Layouts";
+import { Link } from "react-router";
 import settings from "../assets/setting.svg";
 import produk from "../assets/produk card.png";
-import { Link } from "react-router";
+
 
 export const AccountOrder = () => {
   return (
@@ -16,21 +17,23 @@ export const AccountOrder = () => {
                 <h1 className="text-4xl ">Hey, Rafa Almaqdis</h1>
                 <p className="text-base mt-4">rafaalmaqdis53@gmail.com</p>
               </div>
-              <img src={settings} className="cursor-pointer"></img>
+              <Link to="/Setting">
+                <img src={settings} className="cursor-pointer"></img>
+              </Link>
             </div>
           </section>
 
           {/* <!-- Navigation Tabs --> */}
           <nav className="flex gap-6 border-b border-gray-line">
-            <button className="pb-2 border-b border-black font-medium hover:cursor-pointer">
+            <Link to="/AccountOrder" className="pb-2 border-b border-black font-medium hover:cursor-pointer">
               Orders
-            </button>
-            <button className="pb-2  text-gray-text hover:text-black  hover:cursor-pointer">
+            </Link>
+            <Link  to="/AccountFavorit" className="pb-2  text-gray-text hover:text-black  hover:cursor-pointer">
               Favorit
-            </button>
-            <button className="pb-2 text-gray-text hover:text-black hover:cursor-pointer">
+            </Link>
+            <Link to="/AccountAddres" className="pb-2 text-gray-text hover:text-black hover:cursor-pointer">
               Addresses
-            </button>
+            </Link>
           </nav>
 
           <div className="shadow rounded-xl px-5 py-6 flex justify-between items-start">
@@ -51,7 +54,9 @@ export const AccountOrder = () => {
             </div>
             <p className="text-base font-bold">Rp 103,000</p>
             <p className="text-sm">Quantity: 1</p>
-            <Link className="text-sm px-5 py-1 border rounded-full hover:bg-black hover:text-white">Detail</Link>
+            <Link className="text-sm px-5 py-1 border rounded-full hover:bg-black hover:text-white">
+              Detail
+            </Link>
           </div>
         </div>
       </main>

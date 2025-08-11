@@ -1,13 +1,13 @@
 import React from "react";
 import { Layouts } from "../Pages/Layouts";
-import { Link, Links } from "react-router";
+import { Link, Links, useNavigate } from "react-router";
 import herosection from "../assets/herosection.png";
 import SideData from "../DataWeb/SideData";
 import siteData from "../DataWeb/SideData";
 
 
 export const Home = () => {
-
+const navigate = useNavigate()
 
   return (
     <Layouts>
@@ -35,8 +35,9 @@ export const Home = () => {
         {/* Card produk */}
         <section className="w-full space-x-4 flex items-center shrink-0 overflow-x-hidden">
           {SideData.ProdukBestseller.map((item) => (
-            <div key={item.id} className=" min-w-72 px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg ">
-              <div className=" w-full flex justify-between items-center">
+
+            <div onClick={() => navigate(`/ProductDetail`)} key={item.id} className=" min-w-72 px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg cursor-pointer ">
+              <div onClick={(e) => {e.stopPropagation()}} className=" w-full flex justify-between items-center">
                 <div className="px-2.5 py-2.5 bg-white rounded-3xl shadow-md">
                   <img src={item.love} alt="Favorite" className=" " />
                 </div>

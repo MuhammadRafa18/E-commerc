@@ -4,10 +4,11 @@ import siteData from "../DataWeb/SideData";
 import next from "../assets/panah.svg";
 import arrow from "../assets/panahpanjang.svg";
 import arrowfilter from "../assets/panahfilter.svg";
+import { useNavigate } from "react-router";
 
 export const CategoryProduk = () => {
-  
-  
+const navigate = useNavigate()
+   
   return (
     <Layouts>
       <div className="flex items-start space-x-4 px-4 md:px-16 py-8">
@@ -95,8 +96,8 @@ export const CategoryProduk = () => {
           <div className=" w-full grid grid-cols-3 gap-4">
             {/* <!-- Product Card --> */}
             {siteData.ProdukBestseller.map((item) => (
-              <div key={item.id} className="w-full px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg shrink-0  ">
-                <div className=" w-full flex justify-between items-center">
+              <div onClick={() => navigate(`/ProductDetail`)} key={item.id} className="w-full px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg shrink-0 cursor-pointer  ">
+                <div onClick={(e) => {e.stopPropagation()}} className=" w-full flex justify-between items-center">
                   <div className="px-2.5 py-2.5 bg-white rounded-3xl shadow-md">
                     <img src={item.love} alt="Favorite" className=" " />
                   </div>
