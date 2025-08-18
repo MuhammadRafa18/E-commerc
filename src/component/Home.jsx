@@ -17,7 +17,7 @@ const navigate = useNavigate()
       </section>
 
       {/* Produk Bestseller */}
-      <section className="w-full px-4 md:px-16 space-y-7">
+      <section className="w-full px-4 xl:px-16 space-y-7">
         <h1 className="text-xl font-semibold">Bestseller</h1>
         <ul className="flex justify-between items-center text-base">
           <li className=" text-gray-text font-semibold  ">
@@ -64,7 +64,7 @@ const navigate = useNavigate()
       </section>
 
       {/* Product Skintype */}
-      <section className="w-full flex flex-col px-4 md:px-16 items-center">
+      <section className="w-full flex flex-col px-4 xl:px-16 items-center">
         <h2 className="text-xl">Shopping skincare by skin type</h2>
         <p className="text-lg mt-3 mb-4">Need help choosing? Learn what skin type you have by following our guide.</p>
         <div className="w-fit grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 gap-4">
@@ -78,7 +78,7 @@ const navigate = useNavigate()
       </section>
 
       {/* Result Produk */}
-      <section className="w-full px-4 md:px-16 mb-24 space-y-4 flex flex-col justify-center items-center ">
+      <section className="w-full px-4 xl:px-16 mb-24 space-y-4 flex flex-col justify-center items-center ">
         <h3 className="text-xl font-semibold">Arliva product results</h3>
         <div className="w-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4">
           {siteData.ResultProduk.map((item) => (
