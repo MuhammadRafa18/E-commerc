@@ -3,8 +3,8 @@ import { Layouts } from "../Pages/Layouts";
 import { Link } from "react-router";
 import siteData from "../DataWeb/SideData";
 import trash from "../assets/trash.svg";
-import prev from "../assets/prev.svg";
-import next from "../assets/prev.svg";
+import prev from "../assets/Prev.svg";
+import next from "../assets/Prev.svg";
 import plus from "../assets/plusProduk.svg";
 export const Cart = () => {
   const [quantity, setquantity] = useState(1);
