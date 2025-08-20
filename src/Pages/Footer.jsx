@@ -6,8 +6,8 @@ import link3 from "../assets/Link3.png";
 import link4 from "../assets/Link4.png";
 export  const Footer = () => {
   return (
-    <footer className="w-full mx-auto px-4 md:px-16 py-6">
-      <div className="flex justify-between items-start  ">
+    <footer className="w-full  px-12 lg:px-16 py-6">
+      <div className="md:flex  justify-between items-start space-y-6  ">
 
        {/* section Company */}
         <section className="space-y-3">
@@ -52,9 +52,9 @@ export  const Footer = () => {
             <input
               type="text"
               placeholder="Email address"
-              className="py-2 pl-3 w-full text-sm border text-black  "
+              className="py-2 pl-3 w-60 md:w-full text-sm border text-black  "
             />
-            <button className="py-2  px-4 text-xs text-white  bg-black ">
+            <button className="block py-2  px-4 text-xs text-white  bg-black ">
               Subscribe
             </button>
           </form>

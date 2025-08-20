@@ -13,7 +13,7 @@ const navigate = useNavigate()
     <Layouts>
       <div className="flex items-start space-x-4 px-4 md:px-16 py-8">
         {/* Sidebar */}
-        <section className="w-96  border-gray-line border-r">
+        <section className="w-96  border-gray-line border-r -z-10">
           {/* <!-- Breadcrumb --> */}
           <nav aria-label="Breadcrumb" className="text-xs text-gray-text mb-3">
             <ol className="flex items-center space-x-0">

@@ -2,8 +2,8 @@ import React from "react";
 import { Layouts } from "../Pages/Layouts";
 import { Link, Links, useNavigate } from "react-router";
 import herosection from "../assets/herosection.png";
-import SideData from "../DataWeb/SideData";
 import siteData from "../DataWeb/SideData";
+
 
 
 export const Home = () => {
@@ -17,7 +17,7 @@ const navigate = useNavigate()
       </section>
 
       {/* Produk Bestseller */}
-      <section className="w-full px-4 xl:px-16 space-y-7">
+      <section className="w-full px-12 lg:px-16 space-y-7">
         <h1 className="text-xl font-semibold">Bestseller</h1>
         <ul className="flex justify-between items-center text-base">
           <li className=" text-gray-text font-semibold  ">
@@ -28,15 +28,15 @@ const navigate = useNavigate()
               <li className="opacity-50 ">Serum</li>
             </ul>
           </li>
-          <li className=" px-4 py-1.5 border rounded-3xl">
+          <li className="hidden lg:block px-12 py-1.5 border rounded-3xl">
             <Link to="/Category_Produk">Shop all Bestseller</Link>
           </li>
         </ul>
         {/* Card produk */}
-        <section className="w-full space-x-4 flex items-center shrink-0 overflow-x-hidden">
-          {SideData.ProdukBestseller.map((item) => (
+        <section className="w-full space-x-4 flex items-center shrink-0 overflow-x-auto ">
+          {siteData.ProdukBestseller.map((item) => (
 
-            <div onClick={() => navigate(`/ProductDetail`)} key={item.id} className=" min-w-72 px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg cursor-pointer ">
+            <div onClick={() => navigate(`/ProductDetail`)} key={item.id} className=" min-w-72 px-12 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg cursor-pointer ">
               <div onClick={(e) => {e.stopPropagation()}} className=" w-full flex justify-between items-center">
                 <div className="px-2.5 py-2.5 bg-white rounded-3xl shadow-md">
                   <img src={item.love} alt="Favorite" className=" " />
@@ -64,25 +64,25 @@ const navigate = useNavigate()
       </section>
 
       {/* Product Skintype */}
-      <section className="w-full flex flex-col px-4 xl:px-16 items-center">
+      <section className="w-full flex flex-col px-12 lg:px-16 items-center">
         <h2 className="text-xl">Shopping skincare by skin type</h2>
         <p className="text-lg mt-3 mb-4">Need help choosing? Learn what skin type you have by following our guide.</p>
-        <div className="w-fit grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 gap-4">
+        <div className="w-full md:w-fit grid grid-cols-1 md:grid-cols-2  lg:grid-cols-4 gap-6 lg:gap-4">
        {siteData.ProdukSkintype.map((item) => (
-        <div className="relative " key={item.id}>
-          <img src={item.gambar} alt="" className="" />
-          <Link className="w-fit px-4 py-3 absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-sm text-black rounded-lg" >{item.text}</Link>
+        <div className="relative place-items-center" key={item.id}>
+          <img src={item.gambar} alt="" className="w-lg" />
+          <Link className="w-fit lg:w-7/12 text-center px-4 py-3 absolute bottom-4 left-1/2 transform -translate-x-1/2 bg-white text-lg md:text-base lg:text-xs text-black rounded-lg " >{item.text}</Link>
         </div>
           ))}
         </div>
       </section>
 
       {/* Result Produk */}
-      <section className="w-full px-4 xl:px-16 mb-24 space-y-4 flex flex-col justify-center items-center ">
+      <section className="w-full px-12 lg:px-16 mb-24 space-y-4 flex flex-col justify-center items-center ">
         <h3 className="text-xl font-semibold">Arliva product results</h3>
-        <div className="w-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4  gap-4">
+        <div className="w-full md:w-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-6 lg:gap-4">
           {siteData.ResultProduk.map((item) => (
-            <img src={item.gambar} alt="" key={item.id} />
+            <img src={item.gambar} alt="" key={item.id} className="w-lg" />
           ))}
         </div>
       </section>
