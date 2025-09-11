@@ -1,5 +1,6 @@
 import React from "react";
 import { Layouts } from "../Pages/Layouts";
+import { Link } from "react-router";
 
 export const DetailFaq = () => {
   return (
@@ -24,7 +25,7 @@ export const DetailFaq = () => {
               d="M15.75 19.5L8.25 12l7.5-7.5"
             />
           </svg>
-          <span className="">Back to Faq</span>
+          <Link to="/Faq">Back to Faq</Link>
         </a>
 
         {/* <!-- Title --> */}

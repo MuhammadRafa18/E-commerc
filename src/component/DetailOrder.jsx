@@ -1,58 +1,56 @@
 import React from "react";
 import { Layouts } from "../Pages/Layouts";
+import produk from "../assets/produk card.png";
+
 
 export const DetailOrder = () => {
   return (
     <Layouts>
-      <div class="bg-white text-black font-sans p-8 flex justify-center">
-        <main class="w-full max-w-4xl space-y-8">
+      <div class="flex flex-col lg:px-16 lg:py-24">
           {/* <!-- Order Information --> */}
-          <section>
-            <h2 class="text-xl font-semibold">Order Confirmation:</h2>
-            <p class="mt-1">
-              Your order: <span class="font-medium">#12883HGYRJRK</span>
+          <section className="text-lg">
+            <h2 class="font-semibold">Order Confirmation:</h2>
+            <p class="mt-3 font-semibold ">
+              Your order: <span>#12883HGYRJRK</span>
             </p>
-            <p class="text-sm text-gray-600">Order date: 01/02/2025</p>
+            <p class="mt-1 text-sm ">Order date: 01/02/2025</p>
           </section>
-
           {/* <!-- Recipient Information --> */}
-          <section>
-            <h3 class="font-semibold mb-2">Recipient Information</h3>
+          <section className="mt-6">
+            <h3 class="text-lg font-semibold mb-4">Recipient Information</h3>
+            <div className="text-sm space-y-3">
             <p>Delivery: Standard</p>
             <p>Phone: 085724267887</p>
             <p>Address: Jl Naman Iskandar Limo Depok, Jawa Barat</p>
+            </div>
           </section>
 
           {/* <!-- Product Item --> */}
-          <section class="border rounded-xl p-4 flex gap-4 items-start">
-            <img
-              src="https://cdn.jsdelivr.net/gh/twitter/twemoji@latest/assets/svg/1f9fc.svg"
-              alt="Product"
-              class="w-24 h-auto object-contain"
-            />
-            <div class="flex-1 space-y-1">
-              <h4 class="font-semibold">
-                Facewash Men Oil Control Anti Shine Brightening Cooling Foam
-              </h4>
-              <p class="text-sm text-gray-600">150 ml</p>
+           <div className="my-16 px-10 py-6 flex justify-between items-start shadow-normal-full rounded-xl ">
+            <div className="flex space-x-4">
+              <div className="px-7 py-1 border rounded-xl">
+                <img
+                  src={produk}
+                  alt="product"
+                  className="w-9 object-cover  "
+                ></img>
+              </div>
+              <div className="w-96 py-1 h-24 flex flex-col justify-between">
+                <p className="text-sm font-medium">
+                  Facewash Men Oil Control Anti Shine Brightening Cooling Foam
+                </p>
+                <p className="text-xs text-gray-text">150 ml</p>
+              </div>
             </div>
-            <div class="text-sm text-right space-y-1">
-              <p>
-                <strong>Quantity:</strong> 1
-              </p>
-              <p>
-                <strong>Status:</strong> being delivered
-              </p>
-              <p>
-                <strong>Estimate:</strong> 24–28 April 2025
-              </p>
-            </div>
-          </section>
+            <p className="text-sm">Quantity: 1</p>
+            <p className="text-sm">Status: being delivered</p>
+            <p className="text-sm">Estimasi: 24-28 April </p>
+          </div>
 
           {/* <!-- Order Summary --> */}
-          <section>
-            <h3 class="font-semibold mb-2">Summary</h3>
-            <div class="space-y-1 text-sm">
+          <section className="">
+            <h3 class="text-lg font-semibold mb-4">Summary</h3>
+            <div class="space-y-4 text-sm">
               <div class="flex justify-between">
                 <span>Subtotal</span>
                 <span>Rp 100.000</span>
@@ -65,13 +63,12 @@ export const DetailOrder = () => {
                 <span>Delivery</span>
                 <span>Rp 7.500</span>
               </div>
-              <div class="flex justify-between font-semibold text-base mt-2 border-t pt-2">
+              <div class="flex justify-between font-semibold text-base ">
                 <span>Total</span>
                 <span>Rp 103.500</span>
               </div>
             </div>
           </section>
-        </main>
       </div>
     </Layouts>
   );

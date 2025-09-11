@@ -36,7 +36,7 @@ export const AccountOrder = () => {
             </Link>
           </nav>
 
-          <div className="shadow rounded-xl px-5 py-6 flex justify-between items-start">
+          <div className="px-5 py-6 flex justify-between items-start shadow-normal-full rounded-xl">
             <div className="flex space-x-4">
               <div className="px-7 py-1 border rounded-xl">
                 <img
@@ -45,7 +45,7 @@ export const AccountOrder = () => {
                   className="w-9 object-cover  "
                 ></img>
               </div>
-              <div className="w-96 h-24 flex flex-col justify-between">
+              <div className="w-96 py-1 h-24 flex flex-col justify-between">
                 <p className="text-sm font-medium">
                   Facewash Men Oil Control Anti Shine Brightening Cooling Foam
                 </p>
@@ -54,7 +54,7 @@ export const AccountOrder = () => {
             </div>
             <p className="text-base font-bold">Rp 103,000</p>
             <p className="text-sm">Quantity: 1</p>
-            <Link className="text-sm px-5 py-1 border rounded-full hover:bg-black hover:text-white">
+            <Link to="/DetailOrder" className="text-sm px-5 py-1 border rounded-full hover:bg-black hover:text-white">
               Detail
             </Link>
           </div>

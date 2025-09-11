@@ -62,7 +62,7 @@ export  const Footer = () => {
       </div>
       
       {/* Section sosmed */}
-      <section className="w-1/2 mt-6 flex items-center justify-between ">
+      <section className="w-full md:w-1/2 mt-6 flex items-center justify-between ">
         <h3 className="text-sm">@ 2025 Arliva</h3>
         <ul className="flex space-x-3">
           <li>

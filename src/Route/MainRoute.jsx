@@ -19,10 +19,13 @@ import { DetailFaq } from "../component/DetailFaq"
 import { FormAddress } from "../component/FormAddress"
 import { Setting } from "../component/Setting"
 import { ProductDetail } from "../component/ProductDetail"
+import { DetailOrder } from "../component/DetailOrder"
 
+ 
 export const MainRoute = () => {
   return (
     <Routes>
+        {/* Route User */}
         <Route path='/' element={<Home/>}/>
         <Route path='/AboutCompany' element={<AboutCompany/>}/>
         <Route path='/Category_Produk' element={<CategoryProduk/>}/>
@@ -42,8 +45,9 @@ export const MainRoute = () => {
         <Route path='/FormAddress' element={<FormAddress/>} />
         <Route path='/Setting' element={<Setting/>} />
         <Route path='/ProductDetail' element={<ProductDetail/>} />
-        <Route path='/Order' element={<Order/>} />
-        <Route path='/Order' element={<Order/>} />
+        <Route path='/DetailOrder' element={<DetailOrder/>} />
+     
+      
 
     </Routes>
   )

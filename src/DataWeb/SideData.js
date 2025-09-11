@@ -2,10 +2,10 @@ import cardProduk from "../assets/produk card.png";
 import cart from "../assets/cart.svg";
 import love from "../assets/love.svg";
 import start from "../assets/start.svg";
-import produk_1 from "../assets/produk(1).png";
-import produk_2 from "../assets/produk(2).png";
-import produk_3 from "../assets/produk(3).png";
-import produk_4 from "../assets/produk(4).png";
+import produk_1 from "../assets/Gaming.jpg";
+import produk_2 from "../assets/Laptop.jpg";
+import produk_3 from "../assets/Audio.jpg";
+import produk_4 from "../assets/Television.jpg";
 import model_1 from "../assets/model(1).png";
 import model_2 from "../assets/model(2).png";
 import model_3 from "../assets/model(3).png";
@@ -26,73 +26,12 @@ import Qris from "../assets/QRIS.svg";
 import ovo from "../assets/ovo.svg"
 
  const siteData =  {
-    ProdukBestseller : [
-           {
-      id: 1,
-      gambar: cardProduk,
-      nama: "Facewash",
-      size: "50ml",
-      price: "Rp 100.000",
-      rating: 4.7,
-      start:start,
-      love:love,
-      cart:cart,
-      stok: 200,
-    },
-    {
-      id: 2,
-      gambar: cardProduk,
-      nama: "Facewash",
-      size: "50ml",
-      price: "Rp 100.000",
-      rating: 4.7,
-      start:start,
-      love:love,
-      cart:cart,
-      stok: 200,
-    },
-    {
-      id: 3,
-      gambar: cardProduk,
-      nama: "Facewash",
-      size: "50ml",
-      price: "Rp 100.000",
-      rating: 4.7,
-      start:start,
-      love:love,
-      cart:cart,
-      stok: 200,
-    },
-    {
-      id: 4,
-      gambar: cardProduk,
-      nama: "Facewash",
-      size: "50ml",
-      price: "Rp 100.000",
-      rating: 4.7,
-      start:start,
-      love:love,
-      cart:cart,
-      stok: 200,
-    },
-    {
-      id: 5,
-      gambar: cardProduk,
-      nama: "Facewash",
-      size: "50ml",
-      price: "Rp 100.000",
-      rating: 4.7,
-      start:start,
-      love:love,
-      cart:cart,
-      stok: 200,
-    },
-    ],
+   
     ProdukSkintype : [
-      { id:1, gambar:produk_1, text:"Sensitive Skin"},
-      { id:2, gambar:produk_2, text:"Normal Skin"},
-      {id:3, gambar:produk_3, text:"Dry Skin"},
-      { id:4, gambar:produk_4, text:"Oil Skin"}
+      { id:1, gambar:produk_1, text:"Gaming"},
+      { id:2, gambar:produk_2, text:"Laptop"},
+      {id:3, gambar:produk_3, text:"Audio"},
+      { id:4, gambar:produk_4, text:"Television"}
     ],
     ResultProduk : [
       {id:1, gambar:model_1},

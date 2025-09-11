@@ -3,6 +3,10 @@ import { Layouts } from "../Pages/Layouts";
 import { Link } from "react-router";
 import  Prev  from "../assets/panah.svg";
 export const Setting = () => {
+  
+  
+ 
+
   return (
     <Layouts>
       <main class="py-12 bg-gray-secondbackground text-black font-sans flex justify-center items-start min-h-screen ">
