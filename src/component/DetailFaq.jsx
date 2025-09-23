@@ -1,15 +1,17 @@
 import React from "react";
 import { Layouts } from "../Pages/Layouts";
 import { Link } from "react-router";
+import { GetData } from "../Hook/GetData";
 
 export const DetailFaq = () => {
+  const {Data} = GetData(`http://localhost:5000/DetailFaq?faq=${res.data.quest}`)
   return (
     <Layouts>
-      <main class="max-w-3xl mx-auto px-4 py-24 ">
+      <main className="max-w-3xl mx-auto px-4 py-24 ">
         {/* <!-- Back to FAQ --> */}
         <a
-          href="#"
-          class="flex items-center text-sm font-bold text-black space-x-1.5"
+          href="/Faq  "
+          className="flex items-center text-sm font-bold text-black space-x-1.5"
         >
           <svg
             xmlns="http://www.w3.org/2000/svg"
@@ -17,7 +19,7 @@ export const DetailFaq = () => {
             viewBox="0 0 24 24"
             stroke-width="2.5"
             stroke="currentColor"
-            class="w-4 h-4"
+            className="w-4 h-4"
           >
             <path
               stroke-linecap="round"
@@ -27,35 +29,19 @@ export const DetailFaq = () => {
           </svg>
           <Link to="/Faq">Back to Faq</Link>
         </a>
-
-        {/* <!-- Title --> */}
-        <h1 class="text-xl mt-16">
-          Are Arliva products suitable for all skin types?
+       
+       {Data.map((item) => (
+        <div>
+        <h1 className="text-xl mt-16">
+          {item.faq}
         </h1>
-
-        {/* <!-- Answer --> */}
-        <div class="text-sm mt-6  space-y-4">
+        <div className="text-sm mt-6  space-y-4">
           <p>
-            Yes, all Arliva products are formulated to be used on all skin
-            types—including dry, oily, combination, and even sensitive skin.
-          </p>
-          <p>
-            We understand that everyone has unique skin needs. That’s why we use
-            gentle yet effective ingredients, such as hyaluronic acid,
-            niacinamide, and clinically proven botanical extracts.
-          </p>
-          <p>
-            In addition, all of our products are free from parabens, excess
-            alcohol, and harsh synthetic fragrances. Arliva products have also
-            gone through a dermatological testing process, so they are safe for
-            long-term use without disrupting the skin barrier.
-          </p>
-          <p>
-            For optimal results, you can use the “Skincare by Skin Type” feature
-            on our website to find the product that best suits your skin
-            condition and needs.
+            {item.detailfaq}
           </p>
         </div>
+        </div>
+        ))}
       </main>
     </Layouts>
   );

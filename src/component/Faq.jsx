@@ -2,9 +2,13 @@ import React from "react";
 import { Layouts } from "../Pages/Layouts";
 import siteData from "../DataWeb/SideData";
 import search from "../assets/search.svg";
-import { Link, Links } from "react-router";
+import { Link, Links, useNavigate } from "react-router";
+import { GetData } from "../Hook/GetData";
 
 export const Faq = () => {
+  const url = (`http://localhost:5000/Faq`)
+  const {Data: Faq} = GetData(url)
+  const navigate = useNavigate();
   return (
     <Layouts>
       <main class="">
@@ -18,17 +22,17 @@ export const Faq = () => {
             <input
               type="text"
               placeholder="What can we help you find?"
-              class="w-full outline-none placeholder:text-black text-lg"
+              className ="w-full outline-none placeholder:text-black text-lg"
             />
           </div>
         </div>
 
         {/* <!-- FAQ Sections --> */}
-        <div class="bg-white flex pt-5 pb-24 justify-center">
+        <div className="bg-white flex pt-5 pb-24 justify-center">
           <div className="w-1/2">
-            {siteData.Faq.map((item) => (
+            {Faq.map((item) => (
               <div
-                class="flex space-x-24 py-2.5 border-b border-gray-line"
+                className="flex space-x-24 py-2.5 border-b border-gray-line"
                 key={item.id}
               >
                 <div class="w-24 font-semibold">{item.judul}</div>
@@ -37,7 +41,9 @@ export const Faq = () => {
                     <Link>{item.quest1}</Link>
                   </li>
                   <li>
-                    <Link>{item.quest2}</Link>
+                    <Link
+                    onClick={(() => navigate(`/DetailFaq/${item.quest2}`))}
+                    >{item.quest2}</Link>
                   </li>
                   <li>
                     <Link>{item.quest3}</Link>
