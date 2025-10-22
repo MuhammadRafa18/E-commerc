@@ -9,14 +9,13 @@ import loveon from "../assets/loveon.svg";
 import start from "../assets/start.svg";
 import { GetData } from "../Hook/GetData";
 import axios from "axios";
+import StarRatings from "react-star-ratings";
 
 export const Home = () => {
   const { Data: ProductType } = GetData(`http://localhost:5000/ProdukType`);
-  const { Data: Result } = GetData(`http://localhost:5000/Result`);
+  const { Data: Result } = GetData(`http://localhost:5000/result`);
   const [Bestseller, setBestseller] = useState([]);
   const [isActive, setisActive] = useState("Facewash");
-  const [Favorite, setFavorite] = useState(false);
-  const [Cart, setCart] = useState(false);
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -24,10 +23,12 @@ export const Home = () => {
       .get(`http://localhost:5000/produk`, {
         params: {
           category: "Facewash",
-          type: "Bestseller",
         },
       })
-      .then((res) => setBestseller(res.data));
+      .then((res) => {
+        const data = res.data.filter((item) => item.rating > 4);
+        setBestseller(data);
+      });
   }, []);
 
   const HandleProduk = async (category) => {
@@ -35,25 +36,38 @@ export const Home = () => {
       .get(`http://localhost:5000/produk`, {
         params: {
           category: category,
-          type: "Bestseller",
         },
       })
-      .then((res) => setBestseller(res.data));
+      .then((res) => {
+        const data = res.data.filter((item) => item.rating > 4);
+        setBestseller(data);
+      });
   };
 
-  const toggleFavorite = (id) => {
-    setBestseller((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, favorite: !p.favorite } : p))
-    );
+  const toggleFavorite = async (id) => {
+    try {
+      const product = Bestseller.find((p) => p.id === id);
+      const res = await axios.patch(`http://localhost:5000/produk/${id}`, {
+        favorite: !product.favorite,
+      });
+      setBestseller((prev) => prev.map((p) => (p.id === id ? res.data : p)));
+    } catch (err) {
+      console.error(err.message);
+    }
   };
-  const toggleCart = (id) => {
-    setBestseller((prev) =>
-      prev.map((p) => (p.id === id ? { ...p, cart: !p.cart } : p))
-    );
+  const toggleCart = async (id) => {
+    try {
+      const product = Bestseller.find((p) => p.id === id);
+      const res = await axios.patch(`http://localhost:5000/produk/${id}`, {
+        cart: !product.cart,
+      });
+      setBestseller((prev) => prev.map((p) => (p.id === id ? res.data : p)));
+    } catch (err) {
+      console.error(err.message);
+    }
   };
 
-  // console.log(Data);
-
+  // console.log(Bestseller.rating)
   return (
     <Layouts>
       {/* Hero section */}
@@ -66,7 +80,7 @@ export const Home = () => {
 
       {/* Produk Bestseller */}
       <section className="w-full px-12 lg:px-16 space-y-7">
-        <h1 className="text-xl font-semibold">Populer</h1>
+        <h1 className="text-xl font-semibold">Bestseller</h1>
         <ul className="flex justify-between items-center text-base">
           <li className=" text-gray-text font-semibold  ">
             <div className="flex space-x-6">
@@ -127,7 +141,7 @@ export const Home = () => {
           {Bestseller?.length > 0 &&
             Bestseller.map((item) => (
               <div
-                onClick={() => navigate(`/ProductDetail`)}
+                onClick={() => navigate(`/ProductDetail/${item.id}`)}
                 key={item.id}
                 className=" min-w-72 px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg cursor-pointer "
               >
@@ -164,11 +178,20 @@ export const Home = () => {
                 </p>
                 <div className="w-full flex justify-between ">
                   <p className="text-sm font-semibold">{item.title}</p>
-                  <p className="text-xs">{item.price}</p>
+                  <p className="text-xs">Rp {item.price.toLocaleString()}</p>
                 </div>
-                <div className="w-full space-x-1  flex items-center  text-xs ">
-                  <img src={start} alt="Rating" className="" />
-                  <p className="pt-1">{item.rating}</p>
+                <div className="w-full  flex items-center  justify-between text-xs ">
+                  <div className="flex space-x-1">
+                    <StarRatings
+                      rating={item.rating}
+                      starRatedColor="#facc15"
+                      numberOfStars={5}
+                      name="rating"
+                      starDimension="20px"
+                      starSpacing="2px"
+                    />
+                    <p className="pt-1">{item.rating}</p>
+                  </div>
                   <p className="pt-1 text-gray-text ">({item.stok})</p>
                 </div>
               </div>
@@ -201,9 +224,12 @@ export const Home = () => {
                 alt=""
                 className="w-lg h-full rounded-lg"
               />
-              <Link className="w-fit  text-center px-4 py-1.5 absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white text-lg md:text-base lg:text-xs text-black  ">
+              <button
+                onClick={() => navigate(`Category_Produk?type=${item.type}`)}
+                className="w-fit  text-center px-4 py-1.5 absolute bottom-5 left-1/2 transform -translate-x-1/2 bg-white text-lg md:text-base lg:text-xs text-black  "
+              >
                 {item.type}
-              </Link>
+              </button>
             </div>
           ))}
         </div>
@@ -214,7 +240,7 @@ export const Home = () => {
         <h3 className="text-xl font-semibold">Arliva product results</h3>
         <div className="w-full md:w-fit grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 place-items-center gap-6 lg:gap-4">
           {Result.map((item) => (
-            <img src={item.gambar} alt="" key={item.id} className="w-lg" />
+            <img src={item.result} alt="" key={item.id} className="w-lg" />
           ))}
         </div>
       </section>

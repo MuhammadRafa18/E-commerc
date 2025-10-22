@@ -1,21 +1,35 @@
-import React, { useEffect, useState } from "react";
-import { Link, NavLink } from "react-router";
+import React, { useContext, useEffect, useState } from "react";
+import { Link, NavLink, useNavigate } from "react-router";
 import searchBar from "../assets/searchBar.svg";
+import { AuthContext } from "../Context/AuthProvider";
+import { ProdukContext } from "../Context/ProdukProvider";
+import axios from "axios";
 
 export const Navbar = () => {
+  const { Useraccount, setUseraccount } = useContext(AuthContext);
   const [Open, SetOpen] = useState(false);
-
+  const {Cart, setCart} = useContext(ProdukContext)
+  const navigate = useNavigate();
   useEffect(() => {
-    if(Open){
-       document.body.style.overflow = "hidden";
-    }else{
-        document.body.style.overflow = "auto";
+    if (Open) {
+      document.body.style.overflow = "hidden";
+    } else {
+      document.body.style.overflow = "auto";
     }
 
     return () => {
       document.body.style.overflow = "auto";
-    }
-  },[Open])
+    };
+  }, [Open]);
+    useEffect(() => {
+    axios
+      .get(`http://localhost:5000/produk`, {
+        params: {
+          cart: true,
+        },
+      })
+      .then((res) => setCart(res.data));
+  }, []);
 
   return (
     <>
@@ -50,10 +64,14 @@ export const Navbar = () => {
               <Link to="/">Home</Link>
             </li>
             <li>
-              <Link to="/Cart">Chart (3)</Link>
+              <Link to="/Cart">Chart {`(${Cart.length})`}</Link>
             </li>
             <li>
-              <Link to="/Category_Produk">Shop All</Link>
+              <button className="cursor-pointer"
+                onClick={() => navigate(`/Category_Produk?type=Bestseller`)}
+              >
+                Shop All
+              </button>
             </li>
           </ul>
           <h1 className="text-4xl font-semibold">Arliva</h1>
@@ -62,10 +80,14 @@ export const Navbar = () => {
               <Link to="/ContactUs">Contact Us</Link>
             </li>
             <li>
-              <Link to="">Search</Link>
+              <Link to="/Search">Search</Link>
             </li>
             <li>
-              <Link to="/Login">Sign In</Link>
+              {Useraccount && Object.keys(Useraccount).length > 0 ? (
+                <Link to="/AccountFavorit">Account</Link>
+              ) : (
+                <Link to="/Login">Sign In</Link>
+              )}
             </li>
           </ul>
           <button className="lg:hidden ">
@@ -106,13 +128,21 @@ export const Navbar = () => {
             </button>
             <ul className="mb-3 space-y-3 p-4 bg-white rounded-xl shadow ">
               <li className=" py-1.5 border-b border-gray-line">
-                <Link to="/Login">Sign In</Link>
+                {Useraccount && Object.keys(Useraccount).length > 0 ? (
+                  <Link to="/AccountFavorit">Account</Link>
+                ) : (
+                  <Link to="/Login">Sign In</Link>
+                )}
               </li>
               <li className=" py-1.5 ">
                 <Link to="/">Home</Link>
               </li>
               <li className=" py-1.5 ">
-                <Link to="/Category_Produk">Shop All</Link>
+                <button
+                  onClick={() => navigate(`/Category_Produk?type=Bestseller`)}
+                >
+                  Shop All
+                </button>
               </li>
               <li className=" py-1.5 ">
                 <Link to="/ContactUs">Contact Us</Link>

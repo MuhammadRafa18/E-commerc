@@ -20,6 +20,10 @@ import { FormAddress } from "../component/FormAddress"
 import { Setting } from "../component/Setting"
 import { ProductDetail } from "../component/ProductDetail"
 import { DetailOrder } from "../component/DetailOrder"
+import { RouteUser } from './RouteUser'
+import { RouteGuest } from './RouteGuest'
+import { Search } from '../component/Search'
+
 
  
 export const MainRoute = () => {
@@ -27,25 +31,27 @@ export const MainRoute = () => {
     <Routes>
         {/* Route User */}
         <Route path='/' element={<Home/>}/>
+        <Route path='/Search' element={<Search/>} />
         <Route path='/AboutCompany' element={<AboutCompany/>}/>
         <Route path='/Category_Produk' element={<CategoryProduk/>}/>
         <Route path='/ContactUs' element={<ContactUs/>}/>
-        <Route path='/Login' element={<Login/>}/>
-        <Route path='/Register' element={<Register/>}/>
-        <Route path='/LoginWithTelp' element={<LoginWithTelp/>}/>
-        <Route path='/LoginWithEmail' element={<LoginWithEmail/>}/>
-        <Route path='/Vertivikasi' element={<Vertivikasi/>}/>
+        <Route path='/Login' element={<RouteGuest><Login/></RouteGuest>}/>
+        <Route path='/Register' element={<RouteGuest><Register/></RouteGuest>}/>
+        <Route path='/LoginWithTelp' element={<RouteGuest><LoginWithTelp/></RouteGuest>}/>
+        <Route path='/LoginWithEmail' element={<RouteGuest><LoginWithEmail/></RouteGuest>}/>
+        <Route path='/Vertivikasi' element={<RouteGuest><Vertivikasi/></RouteGuest>}/>
         <Route path='/Order' element={<Order/>} />
-        <Route path='/AccountAddres' element={<AccountAddres/>} />
-        <Route path='/AccountFavorit' element={<AccountFavorit/>} />
-        <Route path='/AccountOrder' element={<AccountOrder/>} />
+        <Route path='/AccountAddres' element={<RouteUser><AccountAddres/></RouteUser>} />
+        <Route path='/AccountFavorit' element={<RouteUser><AccountFavorit/></RouteUser>} />
+        <Route path='/AccountOrder' element={<RouteUser><AccountOrder/></RouteUser>} />
         <Route path='/Cart' element={<Cart/>} />
         <Route path='/Faq' element={<Faq/>} />
-        <Route path='/DetailFaq' element={<DetailFaq/>} />
-        <Route path='/FormAddress' element={<FormAddress/>} />
-        <Route path='/Setting' element={<Setting/>} />
-        <Route path='/ProductDetail' element={<ProductDetail/>} />
-        <Route path='/DetailOrder' element={<DetailOrder/>} />
+        <Route path='/DetailFaq/:faq' element={<DetailFaq/>} />
+        <Route path='/FormAddress' element={<RouteUser><FormAddress/></RouteUser>} />
+        <Route path='/FormAddress/:id' element={<RouteUser><FormAddress/></RouteUser>} />
+        <Route path='/Setting' element={<RouteUser><Setting/></RouteUser>} />
+        <Route path='/ProductDetail/:id' element={<ProductDetail/>} />
+        <Route path='/DetailOrder/:id' element={<RouteUser><DetailOrder/></RouteUser>} />
      
       
 

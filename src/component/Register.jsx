@@ -1,14 +1,42 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Layouts } from "../Pages/Layouts";
+import axios from "axios";
 
 export const Register = () => {
+  const [Register,setRegister] = useState();
+  const [Data,setData] = useState();
+  useEffect(() => {
+    axios.get(`http://localhost:5000/DataUser`)
+    .then((res) => setData(res.data))
+  },[])
+  const HandleRegister = async (e) => {
+    e.preventDefault();
+    const formdata = {
+      id: Date.now().toString(),
+      fullname: Register.fullname,
+      email: Register.email,
+      password: Register.password,
+      phone: Register.phone,
+      
+    };
+    await axios.post(`http://localhost:5000/DataUser`, formdata)
+    alert("Data Berhasil Dibuat")
+    setRegister({
+      id:"",
+      fullname: "",
+      email: "",
+      password: "",
+      phone: "",
+    })
+  }
+    console.log(Data)
   return (
     <Layouts>
       <section className="min-h-screen flex items-center justify-center bg-gray-secondbackground">
         <div className="w-lg bg-white rounded-xl shadow px-10 py-10">
           <h1 className="text-4xl  text-center mb-16">Sign Up</h1>
 
-          <form className="text-base"> 
+          <form className="text-base" onSubmit={HandleRegister}> 
             {/* <!-- Fullname --> */}
             <label className="block">
               <span className="sr-only">Fullname</span>
@@ -17,6 +45,7 @@ export const Register = () => {
                 name="fullname"
                 placeholder="Fullname"
                 required
+                onChange={(e) => setRegister({...Register,fullname:e.target.value})}
                 className="w-full border rounded-md mb-4 px-5 py-3 placeholder-black "
               />
             </label>
@@ -29,6 +58,7 @@ export const Register = () => {
                 name="email"
                 placeholder="E-mail"
                 required
+                onChange={(e) => setRegister({...Register,email:e.target.value})}
                 className="w-full border rounded-md mb-4 px-5 py-3 placeholder-black"
               />
             </label>
@@ -41,6 +71,7 @@ export const Register = () => {
                 name="password"
                 placeholder="Password"
                 required
+                onChange={(e) => setRegister({...Register,password:e.target.value})}
                 className="w-full border rounded-md mb-4 px-5 py-3 placeholder-black"
               />
             </label>
@@ -55,6 +86,7 @@ export const Register = () => {
                 name="phone"
                 placeholder="85724215989"
                 required
+                onChange={(e) => setRegister({...Register,phone:e.target.value})}
                 className="w-full px-3 py-3  placeholder-gray-text focus:outline-none"
               />
             </div>

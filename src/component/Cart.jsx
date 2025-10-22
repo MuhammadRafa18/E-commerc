@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Layouts } from "../Pages/Layouts";
 import { Link } from "react-router";
 import siteData from "../DataWeb/SideData";
@@ -6,8 +6,31 @@ import trash from "../assets/trash.svg";
 import prev from "../assets/Prev.svg";
 import next from "../assets/Prev.svg";
 import plus from "../assets/plusProduk.svg";
+import axios from "axios";
+import { ProdukContext } from "../Context/ProdukProvider";
 export const Cart = () => {
   const [quantity, setquantity] = useState(1);
+  const {Cart, setCart} = useContext(ProdukContext)
+  useEffect(() => {
+    axios
+      .get(`http://localhost:5000/produk`, {
+        params: {
+          cart: true,
+        },
+      })
+      .then((res) => setCart(res.data));
+  }, []);
+  const toggleCart = async (id) => {
+    try {
+      const product = Cart.find((p) => p.id === id);
+      const res = await axios.patch(`http://localhost:5000/produk/${id}`, {
+        cart: !product.cart,
+      });
+      setCart((prev) => prev.map((p) => (p.id === id ? res.data : p)));
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
   return (
     <Layouts>
       <main className="flex justify-end pl-4 md:pl-16 ">
@@ -26,49 +49,53 @@ export const Cart = () => {
             </div>
           </div>
           {/* <!-- Product Card --> */}
-          {siteData.ProdukBestseller.slice(0, 3).map((item) => (
-            <div
-              className="shadow rounded-xl p-4 flex justify-between items-start"
-              key={item.id}
-            >
-              <div className="flex space-x-4">
-                <div className="px-7 py-1 border rounded-xl">
-                  <img
-                    src={item.gambar}
-                    alt="product"
-                    className="w-9 object-cover  "
-                  ></img>
+          {Cart?.length > 0 &&
+            Cart.map((item) => (
+              <div
+                className="shadow rounded-xl p-4 flex justify-between items-start"
+                key={item.id}
+              >
+                <div className="flex space-x-4">
+                  <div className="px-7 py-1 border rounded-xl">
+                    <img
+                      src={item.imageproduk}
+                      alt="product"
+                      className="w-9 object-cover  "
+                    ></img>
+                  </div>
+                  <div className="w-96 h-24 flex flex-col justify-between">
+                    <p className="text-sm font-medium">
+                      Facewash Men Oil Control Anti Shine Brightening Cooling
+                      Foam
+                    </p>
+                    <p className="text-xs text-gray-text">{item.size}</p>
+                    <button onClick={() => toggleCart(item.id)}>
+                      <img src={trash} alt="" className="w-8 cursor-pointer" />
+                    </button>
+                  </div>
                 </div>
-                <div className="w-96 h-24 flex flex-col justify-between">
-                  <p className="text-sm font-medium">
-                    Facewash Men Oil Control Anti Shine Brightening Cooling Foam
-                  </p>
-                  <p className="text-xs text-gray-text">{item.size}</p>
-                  <img src={trash} alt="" className="w-8 cursor-pointer" />
+                <p className="text-sm pt-1">Rp {item.price.toLocaleString()}</p>
+                <div className="text-sm flex items-center space-x-6">
+                  <button
+                    onClick={() =>
+                      setquantity((quantity) =>
+                        quantity >= 2 ? quantity - 1 : quantity
+                      )
+                    }
+                    className="cursor-pointer text-xl"
+                  >
+                    -
+                  </button>
+                  <p>{quantity}</p>
+                  <button
+                    onClick={() => setquantity((quantity) => quantity + 1)}
+                    className="cursor-pointer text-xl"
+                  >
+                    +
+                  </button>
                 </div>
               </div>
-              <p className="text-sm pt-1">{item.price}</p>
-              <div className="text-sm flex items-center space-x-6">
-                <button
-                  onClick={() =>
-                    setquantity((quantity) =>
-                      quantity >= 2 ? quantity - 1 : quantity
-                    )
-                  }
-                  className="cursor-pointer text-xl"
-                >
-                  -
-                </button>
-                <p>{quantity}</p>
-                <button
-                  onClick={() => setquantity((quantity) => quantity + 1)}
-                  className="cursor-pointer text-xl"
-                >
-                  +
-                </button>
-              </div>
-            </div>
-          ))}
+            ))}
         </div>
 
         {/* <!-- Right Side: Payment --> */}
@@ -80,22 +107,23 @@ export const Cart = () => {
               <img src={next} alt="" className="cursor-pointer" />
             </div>
           </div>
-          
+
           {/* Simmiliar product */}
-            {siteData.ProdukBestseller.slice(0,1).map((item) => (
-            <div className="flex px-5 py-2.5 text-xs justify-between shadow rounded-xl">
-              <div className="flex justify-center space-x-6">
-            <img src={item.gambar} alt="" className="w-7"/>
-            <div className="flex flex-col justify-between">
-            <p className="">{item.nama}</p>
-            <p className="">{item.price}</p>
-            <p>{item.size}</p>
-            </div>
+          {siteData.ProdukBestseller?.length > 0 &&
+            siteData.ProdukBestseller.slice(0, 1).map((item) => (
+              <div className="flex px-5 py-2.5 text-xs justify-between shadow rounded-xl">
+                <div className="flex justify-center space-x-6">
+                  <img src={item.gambar} alt="" className="w-7" />
+                  <div className="flex flex-col justify-between">
+                    <p className="">{item.nama}</p>
+                    <p className="">{item.price}</p>
+                    <p>{item.size}</p>
+                  </div>
+                </div>
+                <div className="flex items-end">
+                  <img src={plus} alt="" />
+                </div>
               </div>
-            <div className="flex items-end">
-             <img src={plus} alt="" />
-            </div>
-            </div>
             ))}
 
           <div className="mt-6 border-b border-gray-line "></div>

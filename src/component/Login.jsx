@@ -1,10 +1,22 @@
-import React from "react";
+import React, { useContext } from "react";
 import { Layouts } from "../Pages/Layouts";
 import phone from "../assets/phone.svg"
 import google from "../assets/google.svg"
-import { Link } from "react-router";
+import { AuthContext } from "../Context/AuthProvider";
+import { useNavigate } from "react-router";
 
 export const Login = () => {
+  const { Form,setForm} = useContext(AuthContext);
+  const navigate = useNavigate();
+  const HandleEmail = (e) => {
+    e.preventDefault();
+    
+    if(Form.email){
+      navigate(`/LoginWithEmail`)
+    }
+    
+  }
+  console.log(Form)
   return (
     <Layouts>
       <section className="min-h-screen flex items-center justify-center bg-gray-secondbackground">
@@ -29,8 +41,8 @@ export const Login = () => {
             <hr className="flex-grow border-gray-line" />
           </div>
 
-          <form>
-            <label for="email" className="sr-only">
+          <form onSubmit={HandleEmail}>
+            <label  className="sr-only">
               E-mail
             </label>
             <input
@@ -40,6 +52,9 @@ export const Login = () => {
               placeholder="E-mail"
               className="w-full border rounded-md px-5 py-3 mb-6 placeholder-black"
               required
+              onChange={(e) => {
+                setForm({...Form,email:e.target.value})
+              }}
             />
 
             <button

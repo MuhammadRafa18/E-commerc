@@ -5,9 +5,8 @@ import carton from "../assets/carton.svg";
 import love from "../assets/love.svg";
 import loveon from "../assets/loveon.svg";
 import next from "../assets/panah.svg";
-import arrow from "../assets/panahpanjang.svg";
 import arrowfilter from "../assets/panahfilter.svg";
-import start from "../assets/start.svg";
+import StarRatings from "react-star-ratings";
 import { useLocation, useNavigate } from "react-router";
 import { GetData } from "../Hook/GetData";
 import axios from "axios";
@@ -21,44 +20,68 @@ export const CategoryProduk = () => {
   const [Product, setProduct] = useState([]);
   const { Data: Type } = GetData(`http://localhost:5000/type`);
   const { Data: Category } = GetData(`http://localhost:5000/category`);
-  const [isActive, setisActive] = useState({ type: "Bestseller", category: "All" });
-
+  const [isActive, setisActive] = useState({
+    category: "All",
+    type: queryType || "Bestseller",
+  });
+  const [Readmore, setReadmore] = useState(false);
+  const text =
+    "Experience a comprehensive and balanced skincare experience. From cleansing to final protection, each of our products—from face wash, serum, sunscreen, to moisturizer—is designed with gentle yet effective formulations to support your skin's health every day. We believe that healthy skin not only looks radiant but also feels comfortable, moisturized, and nourished from within.";
   useEffect(() => {
     let params = {};
-    if (queryType) {
+    if (queryType !== "Bestseller") {
       params.type = queryType;
     }
-    axios
-      .get(`http://localhost:5000/produk`, { params })
-      .then((res) => setProduct(res.data));
+    axios.get(`http://localhost:5000/produk`, { params }).then((res) => {
+      if (queryType === "Bestseller") {
+        const data = res.data.filter((item) => item.rating > 4);
+        setProduct(data);
+      } else {
+        setProduct(res.data);
+      }
+    });
   }, [queryType]);
 
   const HandleFilterProduct = async (type, category) => {
-    axios
-      .get(`http://localhost:5000/produk`, {
-        params: {
-          type: type,
-          category: category,
-        },
-      })
-      .then((res) => setProduct(res.data));
+    let params = {};
+    if (type !== "Bestseller") {
+      params.type = type;      
+    } else if (category !== "All"){
+      params.category = category;
+    }
+    axios.get(`http://localhost:5000/produk`, { params }).then((res) => {
+      if (type === "Bestseller") {
+        const data = res.data.filter((item) => item.rating > 4);
+        setProduct(data);
+      } else {
+        setProduct(res.data);
+      }
+    });
   };
 
-  const toggleFavorite = (id) => {
-  setProduct((prev) =>
-    prev.map((p) =>
-      p.id === id ? { ...p, favorite: !p.favorite } : p
-    )
-  );
-};
-const toggleCart = (id) => {
-  setProduct((prev) =>
-    prev.map((p) =>
-      p.id === id ? { ...p, cart: !p.cart } : p
-    )
-  );
-};
-  console.log(Product)
+  const toggleFavorite = async (id) => {
+    try {
+      const product = Product.find((p) => p.id === id);
+      const res = await axios.patch(`http://localhost:5000/produk/${id}`, {
+        favorite: !product.favorite,
+      });
+      setProduct((prev) => prev.map((p) => (p.id === id ? res.data : p)));
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  const toggleCart = async (id) => {
+    try {
+      const product = Product.find((p) => p.id === id);
+      const res = await axios.patch(`http://localhost:5000/produk/${id}`, {
+        cart: !product.cart,
+      });
+      setProduct((prev) => prev.map((p) => (p.id === id ? res.data : p)));
+    } catch (err) {
+      console.error(err.message);
+    }
+  };
+  //  console.log(isActive.category)
   return (
     <Layouts>
       <div className="flex  items-start space-x-4 px-4 md:px-16 py-8">
@@ -83,32 +106,95 @@ const toggleCart = (id) => {
                   <img src={next} alt="" className="-rotate-90" />
                 </li>
                 <li>
-                  <a href="#">{isActive.type || "Bestseller"}</a>
+                  <a href="#">{isActive.type || isActive.type}</a>
                 </li>
                 <li>
                   <img src={next} alt="" className="-rotate-90" />
                 </li>
-                <li className="font-semibold text-black">{isActive.category || "All"}</li>
+                <li className="font-semibold text-black">
+                  {isActive.category || "All"}
+                </li>
               </ol>
             </nav>
 
             {/* <!-- Heading --> */}
             <header className="mb-6">
-              <h1 className="flex mb-3 text-lg">{isActive.type} 
-              <img src={next} alt="" className="-rotate-90" />  
-              {isActive.category}</h1>
-              <p className="text-xs text-gray-text pr-6">
-                Choose our five best-selling facewashes to try for  free...{" "}
-                <a href="#" className="underline">
-                  Read more
-                </a>
+              <h1 className="flex mb-3 text-lg">
+                {isActive.type || isActive.type}
+                <img src={next} alt="" className="-rotate-90" />
+                {isActive.category}
+              </h1>
+              <p className="text-xs text-gray-text pr-6 ">
+                {Readmore ? text : `${text.substring(0, 180)}...`}
+                <button
+                  className="text-black cursor-pointer"
+                  onClick={() => setReadmore(!Readmore)}
+                >
+                  {Readmore ? "Show less" : "Read more"}
+                </button>
               </p>
             </header>
             {/* <!-- Sidebar Filter --> */}
 
             <div className="">
               <aside className="w-full pr-8 flex flex-col justify-center items-center ">
-                {/* <!-- Category Filter --> */}
+                {/* <!-- Category Filter  type --> */}
+                <section className="w-full  space-y-2 text-sm">
+                  <details className="group">
+                    <summary className="py-1.5 flex items-center justify-between border-t border-gray-line cursor-pointer ">
+                      Bestseller
+                      <img
+                        src={next}
+                        alt=""
+                        className="px-1 py-2 border border-gray-line rounded-full transition-transform duration-300 group-open:rotate-0 rotate-180"
+                      />
+                    </summary>
+                    <div className="mt-2 mb-2 space-y-1 border border-gray-line rounded-lg">
+                      <div
+                        onClick={() => {
+                          setisActive({
+                            type: "Bestseller",
+                            category:  "All",
+                          });
+                          HandleFilterProduct("Bestseller", "All");
+                        }}
+                      >
+                        <label className="p-2 space-x-2 flex items-center border-b  border-gray-line cursor-pointer">
+                          <div className="flex justify-center items-center w-5 h-5  rounded-full border  border-gray-line cursor-pointer ">
+                            {isActive.type === "Bestseller" &&
+                              isActive.category === "All" && (
+                                <div className="w-3 h-3 rounded-full bg-black"></div>
+                              )}
+                          </div>
+                          <span>All</span>
+                        </label>
+                      </div>
+                      {Category.map((label) => (
+                        <div
+                          key={label.id}
+                          onClick={() => {
+                            setisActive({
+                              type: "Bestseller",
+                              category: label.category,
+                            });
+                            HandleFilterProduct("Bestseller", label.category);
+                          }}
+                        >
+                          <label className="p-2 space-x-2 flex items-center border-b  border-gray-line cursor-pointer">
+                            <div className="flex justify-center items-center w-5 h-5  rounded-full border  border-gray-line cursor-pointer ">
+                              {isActive.type === "Bestseller" &&
+                                isActive.category === label.category && (
+                                  <div className="w-3 h-3 rounded-full bg-black"></div>
+                                )}
+                            </div>
+                            <span>{label.category}</span>
+                          </label>
+                        </div>
+                      ))}
+                    </div>
+                  </details>
+                </section>
+                {/* <!-- Category Filter Type --> */}
                 <section className="w-full  space-y-2 text-sm">
                   {Type?.length > 0 &&
                     Type.map((item) => (
@@ -121,42 +207,34 @@ const toggleCart = (id) => {
                             className="px-1 py-2 border border-gray-line rounded-full transition-transform duration-300 group-open:rotate-0 rotate-180"
                           />
                         </summary>
-                        <div className="mt-4 space-y-1 border border-gray-line rounded-lg">
+
+                        <div className="mt-2 mb-2 space-y-1 border border-gray-line rounded-lg">
                           {Category.map((label) => (
-                            <label
+                            <div
                               key={label.id}
-                              className="p-2 space-x-2 flex items-center border-b  border-gray-line cursor-pointer"
+                              onClick={() => {
+                                setisActive({
+                                  type: item.type,
+                                  category: label.category,
+                                });
+                                HandleFilterProduct(item.type, label.category);
+                              }}
                             >
-                              <div
-                                className="flex justify-center items-center w-5 h-5  rounded-full border  border-gray-line cursor-pointer "
-                                onClick={() => {
-                                  setisActive({
-                                    type: item.type,
-                                    category: label.category,
-                                  });
-                                  HandleFilterProduct(
-                                    item.type,
-                                    label.category
-                                  );
-                                }}
-                              >
-                                {isActive.type === item.type &&
-                                  isActive.category === label.category && (
-                                    <div className="w-3 h-3 rounded-full bg-black"></div>
-                                  )}
-                              </div>
-                              <span>{label.category}</span>
-                            </label>
+                              <label className="p-2 space-x-2 flex items-center border-b  border-gray-line cursor-pointer">
+                                <div className="flex justify-center items-center w-5 h-5  rounded-full border  border-gray-line cursor-pointer ">
+                                  {isActive.type === item.type &&
+                                    isActive.category === label.category && (
+                                      <div className="w-3 h-3 rounded-full bg-black"></div>
+                                    )}
+                                </div>
+                                <span>{label.category}</span>
+                              </label>
+                            </div>
                           ))}
                         </div>
                       </details>
                     ))}
                 </section>
-
-                <button className="w-fit mt-6 px-4 py-2 flex items-center space-x-2 text-sm  border rounded-full cursor-pointer ">
-                  <img src={arrow} alt="" />
-                  <span>Back to top</span>
-                </button>
               </aside>
             </div>
           </section>
@@ -179,18 +257,18 @@ const toggleCart = (id) => {
               />
               {Filter ? "Hide Filters" : "Show Filters"}
             </button>
-            <span>| {Type.length} Items</span>
+            <span>| {Product.length} Items</span>
           </div>
 
           {/* <!-- Product Grid --> */}
-          <div className=" w-full grid xl:grid-cols-3 grid-cols-2  gap-4">
+          <div className=" w-full grid  2xl:grid-cols-3 lg:grid-cols-2 grid-cols-1 gap-4 ">
             {/* <!-- Product Card --> */}
             {Product?.length > 0 &&
               Product.map((item) => (
                 <div
-                  onClick={() => navigate(`/ProductDetail`)}
+                  onClick={() => navigate(`/ProductDetail/${item.id}`)}
                   key={item.id}
-                  className="w-full px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg shrink-0 cursor-pointer  "
+                  className="min-w-72 px-6 py-4 space-y-3 flex flex-col items-center bg-bg-card  rounded-lg shrink-0 cursor-pointer  "
                 >
                   <div
                     onClick={(e) => {
@@ -212,7 +290,11 @@ const toggleCart = (id) => {
                       className="px-2.5 py-2.5 bg-white rounded-3xl shadow-md"
                       onClick={() => toggleCart(item.id)}
                     >
-                    <img src={item.cart ? carton : cart} alt="" className="w-4" />  
+                      <img
+                        src={item.cart ? carton : cart}
+                        alt=""
+                        className="w-4"
+                      />
                     </button>
                   </div>
                   <img src={item.imageproduk} alt="Produk" className="w-16" />
@@ -221,17 +303,24 @@ const toggleCart = (id) => {
                   </p>
                   <div className="w-full flex justify-between ">
                     <p className="text-sm font-semibold">{item.title}</p>
-                    <p className="text-xs">{item.price}</p>
+                    <p className="text-xs">Rp {item.price.toLocaleString()}</p>
                   </div>
-                  <div className="w-full space-x-1  flex items-center  text-xs ">
-                    <img src={start} alt="Rating" className="" />
-                    <p className="pt-0.5">{item.rating}</p>
-                    <p className="pt-0.5 text-gray-text ">{item.stok}</p>
+                  <div className="w-full  flex items-center  justify-between text-xs ">
+                    <div className="flex space-x-1">
+                      <StarRatings
+                        rating={item.rating}
+                        starRatedColor="#facc15"
+                        numberOfStars={5}
+                        name="rating"
+                        starDimension="20px"
+                        starSpacing="2px"
+                      />
+                      <p className="pt-1">{item.rating}</p>
+                    </div>
+                    <p className="pt-1 text-gray-text ">({item.stok})</p>
                   </div>
                 </div>
               ))}
-
-            {/* <!-- Ulangi card sebanyak produk yang tersedia --> */}
           </div>
         </section>
       </div>
